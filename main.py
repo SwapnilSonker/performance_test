@@ -15,6 +15,7 @@ WEBHOOK_SECRET = os.getenv("GITHUB_WEBHOOK_SECRET").encode()
 @app.post("/webhook/github")
 async def github_webhook(request: Request, x_hub_signature_256: str = Header(...)):
     body = await request.body()
+    print(f"body : {body}")
 
     # Compute HMAC SHA-256
     signature = "sha256=" + hmac.new(WEBHOOK_SECRET, body, hashlib.sha256).hexdigest()
